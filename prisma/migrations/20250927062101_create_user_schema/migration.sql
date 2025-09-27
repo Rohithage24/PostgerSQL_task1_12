@@ -7,3 +7,6 @@ CREATE TABLE "public"."User" (
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("Id")
 );
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_Mobile_key" ON "public"."User"("Mobile");
