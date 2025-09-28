@@ -18,7 +18,13 @@ datasource db {
 model User {
   Id Int @id @default(autoincrement())
   Name String? 
-  Mobile Int @unique
+  Mobile String @unique
   created_date DateTime @default(now())
 }
 
+model MobileLogin {
+  Id Int @id @default(autoincrement())
+  Mobile String @unique
+  Name  String?
+  otp  String 
+}
