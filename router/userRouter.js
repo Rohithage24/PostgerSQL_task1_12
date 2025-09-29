@@ -2,7 +2,7 @@ import express from "express";
 import {usercreate , userAllget} from '../Controllers/userCon.js';
 import {sendOtp , verifyOtp , completeSignup} from '../Controllers/otpCon.js'
 import {sendOpt , verfiy , compSignup , authU} from "../Controllers/otpConer.js";
-import { forgatPassword , forgetOTPverfiy , CreateNewPass} from "../Controllers/forgetpsaa.js";
+import { forgatPassword , forgetOTPverfiy , CreateNewPass} from "../Controllers/forgetpass.js";
 
 const router = express.Router();
 
