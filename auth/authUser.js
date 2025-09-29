@@ -4,7 +4,9 @@ const secKey = "rohithage@789"
 export const createToken = (data)=>{
     const payload = {
         Mobile : data.Mobile,
-        Name : data.Name
+        Name : data.Name,
+        userName : data.userName,
+        password : data.password
     }
     const token = jwt.sign(payload ,secKey ,{ expiresIn: '24h' })
 

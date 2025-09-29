@@ -15,8 +15,10 @@ model User {
 }
 
 model MobileLogin {
-  Id Int @id @default(autoincrement())
-  Mobile String @unique
-  Name  String?
-  otp  String 
+  Id         Int      @id @default(autoincrement())
+  Mobile     String   @unique
+  Name       String
+  userName   String   @unique
+  password   String
+  otp        String?
 }
