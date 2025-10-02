@@ -15,7 +15,6 @@ model User {
 }
 
 model MobileLogin {
-<<<<<<< HEAD
   Id       Int     @id @default(autoincrement())
   Mobile   String  @unique
   Name     String
@@ -43,26 +42,3 @@ model shopRegister {
 
   mobileLogin MobileLogin @relation(fields: [userId], references: [Id])
 }
-=======
-  Id         Int      @id @default(autoincrement())
-  Mobile     String   @unique
-  Name       String
-  userName   String   @unique
-  password   String
-  otp        String?
-}
-
-model Shop {
-  id            Int      @id @default(autoincrement())
-  ShopName      String
-  CustomerCare  String   @db.VarChar(15)   // 10-digit phone, but allow a bit more for +91 etc
-  Address       String
-  Pincode       String   @db.VarChar(6)
-  AadharFront   String   // will store relative path to file
-  AadharBack    String
-  InteriorPhoto String
-  ExteriorPhoto String
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-}
->>>>>>> origin/shopRegister
