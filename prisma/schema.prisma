@@ -8,17 +8,37 @@ datasource db {
 }
 
 model User {
-  Id Int @id @default(autoincrement())
-  Name String? 
-  Mobile String @unique
+  Id           Int      @id @default(autoincrement())
+  Name         String?
+  Mobile       String   @unique
   created_date DateTime @default(now())
 }
 
 model MobileLogin {
-  Id         Int      @id @default(autoincrement())
-  Mobile     String   @unique
-  Name       String
-  userName   String   @unique
-  password   String
-  otp        String?
+  Id       Int     @id @default(autoincrement())
+  Mobile   String  @unique
+  Name     String
+  userName String  @unique
+  password String
+  otp      String?
+
+  shopRegister shopRegister[]
+}
+
+model shopRegister {
+  id            Int      @id @default(autoincrement())
+  ShopName      String
+  CustomerCare  String   @db.VarChar(15)
+  userId        Int
+  Mobile        String // 10-digit phone, but allow a bit more for +91 etc
+  Address       String
+  Pincode       String   @db.VarChar(6)
+  aadhaarFront  String? // make it optional
+  aadhaarBack   String?
+  interiorPhoto String?
+  exteriorPhoto String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  mobileLogin MobileLogin @relation(fields: [userId], references: [Id])
 }

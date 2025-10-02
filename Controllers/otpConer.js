@@ -50,6 +50,8 @@ export const sendOpt = async (req, res) => {
     .json({ status: 201, massage: 'otp send Sucessfully..' })
 }
 
+
+
 export const verfiy = async (req, res) => {
   const { Mobile, otp } = req.body
 
