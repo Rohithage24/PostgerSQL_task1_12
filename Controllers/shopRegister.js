@@ -86,4 +86,8 @@ export const shopAllGet = async (req, res) => {
     console.error(error);
     return res.status(500).json({ status: 500, message: 'Server error', error: String(error) });
   }
+<<<<<<< HEAD
 };
+=======
+};
+>>>>>>> origin/shopRegister
