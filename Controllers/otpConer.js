@@ -2,27 +2,37 @@ import prisma from '../db/db.config.js'
 import { createToken, verifyToken } from '../auth/authUser.js'
 
 
+
 export const sendOpt = async (req, res) => {
-  const { Mobile, Name, userName, password } = req.body
+  const { Mobile, Name, userName, password } = req.body;
 
-  console.log(Mobile)
-
+  // Validate mobile number
   if (!/^\d{10}$/.test(Mobile)) {
-    return res
-      .status(400)
-      .json({ status: 400, message: 'invilide number not 10 -digit' })
-  }
-  let userNamefind = await prisma.mobileLogin.findFirst({ where: { userName } })
-
-  if (userNamefind) {
-    return res
-      .status(401)
-      .json({ status: 401, massage: 'This user name already rejister' })
+    return res.status(400).json({ status: 400, message: 'Invalid 10-digit number' });
   }
 
-  const otp = Math.floor(1000 + Math.random() * 9999).toString()
+  // Check if Mobile or userName already exists
+  const existingUser = await prisma.mobileLogin.findFirst({
+    where: {
+      OR: [
+        { Mobile },
+        { userName }
+      ]
+    }
+  });
 
-  userNamefind = await prisma.mobileLogin.create({
+  if (existingUser) {
+    return res.status(401).json({ 
+      status: 401, 
+      message: 'Mobile number or username already registered' 
+    });
+  }
+
+  // Generate OTP
+  const otp = Math.floor(1000 + Math.random() * 9000).toString();
+
+  // Create new user with OTP
+  const newUser = await prisma.mobileLogin.create({
     data: {
       Name,
       userName,
@@ -30,25 +40,66 @@ export const sendOpt = async (req, res) => {
       Mobile,
       otp
     }
-  })
+  });
 
-  // if (userfind) {
-  //   userfind = await prisma.mobileLogin.update({
-  //     where: { Mobile },
-  //     data: { otp }
-  //   })
-  // } else {
-  //   userfind = await prisma.mobileLogin.create({
-  //     data: { Mobile, otp }
-  //   })
-  // }
+  console.log('OTP:', otp);
 
-  console.log(otp)
+  return res.status(201).json({
+    status: 201,
+    message: 'OTP sent successfully',
+    otp, // optional: for testing
+  });
+};
 
-  return res
-    .status(201)
-    .json({ status: 201, massage: 'otp send Sucessfully..' })
-}
+
+// export const sendOpt = async (req, res) => {
+//   const { Mobile, Name, userName, password } = req.body
+
+//   console.log(Mobile)
+
+//   if (!/^\d{10}$/.test(Mobile)) {
+//     return res
+//       .status(400)
+//       .json({ status: 400, message: 'invilide number not 10 -digit' })
+//   }
+//   let userNamefind = await prisma.mobileLogin.findFirst({ where: { Mobile } })
+//   console.log(userNamefind);
+  
+//   if (userNamefind) {
+//     return res
+//       .status(401)
+//       .json({ status: 401, massage: 'This user name already rejister' })
+//   }
+
+//   const otp = Math.floor(1000 + Math.random() * 9999).toString()
+
+//   userNamefind = await prisma.mobileLogin.create({
+//     data: {
+//       Name,
+//       userName,
+//       password,
+//       Mobile,
+//       otp
+//     }
+//   })
+
+//   // if (userfind) {
+//   //   userfind = await prisma.mobileLogin.update({
+//   //     where: { Mobile },
+//   //     data: { otp }
+//   //   })
+//   // } else {
+//   //   userfind = await prisma.mobileLogin.create({
+//   //     data: { Mobile, otp }
+//   //   })
+//   // }
+
+//   console.log(otp)
+
+//   return res
+//     .status(201)
+//     .json({ status: 201, massage: 'otp send Sucessfully..' })
+// }
 
 
 

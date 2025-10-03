@@ -3,8 +3,9 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model User {
@@ -15,30 +16,28 @@ model User {
 }
 
 model MobileLogin {
-  Id       Int     @id @default(autoincrement())
-  Mobile   String  @unique
-  Name     String
-  userName String  @unique
-  password String
-  otp      String?
-
+  Id           Int            @id @default(autoincrement())
+  Mobile       String         @unique
+  Name         String
+  userName     String         @unique
+  password     String
+  otp          String?
   shopRegister shopRegister[]
 }
 
 model shopRegister {
-  id            Int      @id @default(autoincrement())
+  id            Int         @id @default(autoincrement())
   ShopName      String
-  CustomerCare  String   @db.VarChar(15)
+  CustomerCare  String      @db.VarChar(15)
   userId        Int
-  Mobile        String // 10-digit phone, but allow a bit more for +91 etc
+  Mobile        String
   Address       String
-  Pincode       String   @db.VarChar(6)
-  aadhaarFront  String? // make it optional
+  Pincode       String      @db.VarChar(6)
+  aadhaarFront  String?
   aadhaarBack   String?
   interiorPhoto String?
   exteriorPhoto String?
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-
-  mobileLogin MobileLogin @relation(fields: [userId], references: [Id])
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  mobileLogin   MobileLogin @relation(fields: [userId], references: [Id])
 }
