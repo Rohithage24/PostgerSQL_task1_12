@@ -3,6 +3,7 @@ import http from 'http';
 import cookieParser from "cookie-parser";
 import userRouter from "./router/userRouter.js"
 import shopRouter from "./router/shopRouter.js";
+import adminRouter from "./router/adminRouter.js"
 
 const app = express();
 
@@ -13,6 +14,10 @@ app.use(cookieParser());
 app.use('/api/user', userRouter)
 
 app.use('/api/shop',shopRouter)
+
+
+app.use('/api/admin',adminRouter)
+
 
 
 export default server;

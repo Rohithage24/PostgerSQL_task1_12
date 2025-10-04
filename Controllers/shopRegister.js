@@ -18,7 +18,7 @@ export const uploadToCloudinary = (fileBuffer, folder, fileName) => {
 // KYC upload controller
 export const shopCreate  = async (req, res) => {
   try {
-    const { mobile, ShopName, CustomerCare, Address, Pincode } = req.body;
+    const { mobile, ShopName,Gmail, CustomerCare, Address, Pincode } = req.body;
 
     const user = await prisma.mobileLogin.findUnique({
       where: { Mobile: mobile },
@@ -52,12 +52,14 @@ export const shopCreate  = async (req, res) => {
         CustomerCare,
         userId: user.Id,
         Mobile: user.Mobile,
+        Gmail,
         Address,
         Pincode,
         aadhaarFront,
         aadhaarBack,
         interiorPhoto,
         exteriorPhoto,
+        Status:"Panding"
       },
     });
 
@@ -88,4 +90,5 @@ export const shopAllGet = async (req, res) => {
   }
 
 };
+
 

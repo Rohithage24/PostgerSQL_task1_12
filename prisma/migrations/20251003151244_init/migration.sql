@@ -50,3 +50,6 @@ CREATE UNIQUE INDEX "MobileLogin_userName_key" ON "MobileLogin"("userName");
 
 -- AddForeignKey
 ALTER TABLE "shopRegister" ADD CONSTRAINT "shopRegister_userId_fkey" FOREIGN KEY ("userId") REFERENCES "MobileLogin"("Id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+
+
