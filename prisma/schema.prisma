@@ -38,7 +38,7 @@ model shopRegister {
   aadhaarBack   String?
   interiorPhoto String?
   exteriorPhoto String?
-  Status        String      
+  Status        String      @default("Pending") 
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
   mobileLogin   MobileLogin @relation(fields: [userId], references: [Id])
