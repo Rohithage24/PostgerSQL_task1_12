@@ -31,15 +31,15 @@ model shopRegister {
   CustomerCare  String      @db.VarChar(15)
   userId        Int
   Mobile        String      @unique
-  Gmail         String      @unique
-  Address       String      
+  Address       String
   Pincode       String      @db.VarChar(6)
   aadhaarFront  String?
   aadhaarBack   String?
   interiorPhoto String?
   exteriorPhoto String?
-  Status        String      @default("Pending") 
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
+  Gmail         String      @unique
+  Status        String      @default("Pending")
   mobileLogin   MobileLogin @relation(fields: [userId], references: [Id])
 }
