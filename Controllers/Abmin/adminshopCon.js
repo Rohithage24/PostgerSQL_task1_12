@@ -34,41 +34,37 @@ export const shopConform = async (req, res) => {
 }
 
 export const PandingReq = async (req, res) => {
+    const state = req.params.status;
   try {
-    const penReq = await prisma.shopRegister.findMany({
-      where: {
-        Status: 'Panding'
-      }
-    })
+    const allReq = await prisma.shopRegister.findMany({ })
+     const penReq = allReq.filter(item => item.Status === state)
 
     if (!penReq || penReq.length === 0) {
-      return res.status(401).json({ message: 'No pending request for shop.' })
+      return res.status(401).json({ message: `No ${state} request for shop.` })
     }
 
-    return res.status(200).json({ data: penReq, message: 'All Panding List' })
+    return res.status(200).json({ data: penReq, message: `All ${state} List` })
   } catch (err) {
     console.error(err)
     return res.status(500).json({ error: 'Server error' })
   }
 }
 
+// export const completeReq = async (req, res) => {
+//   try {
+//     const comReq = await prisma.shopRegister.findMany({
+//       where: {
+//         Status: 'Complete'
+//       }
+//     })
 
+//     if (!comReq || comReq.length === 0) {
+//       return res.status(401).json({ message: 'No complete request for shop.' })
+//     }
 
-export const completeReq = async (req, res) => {
-  try {
-    const comReq = await prisma.shopRegister.findMany({
-      where: {
-        Status: 'Complete'
-      }
-    })
-
-    if (!comReq || comReq.length === 0) {
-      return res.status(401).json({ message: 'No complete request for shop.' })
-    }
-
-    return res.status(200).json({ data: comReq, message: 'All complete List' })
-  } catch (err) {
-    console.error(err)
-    return res.status(500).json({ error: 'Server error' })
-  }
-}
+//     return res.status(200).json({ data: comReq, message: 'All complete List' })
+//   } catch (err) {
+//     console.error(err)
+//     return res.status(500).json({ error: 'Server error' })
+//   }
+// }
